@@ -15,7 +15,7 @@ let loaderTimeout;
 
 /**
  * Функция задаёт первоначальное состояние страницы.
- * Отправляется первый запрос за картинками, юез параметров т.к. с дефолтными настройками.
+ * Отправляется первый запрос за картинками, без параметров т.к. с дефолтными настройками.
  */
 const initialState = function () {
     action.disabled = false;
@@ -32,7 +32,9 @@ const getPictures = function (page = 1, limit = 10) {
     showLoader();
     fetch(`https://picsum.photos/v2/list?page=${page};limit=${limit}`)
         .then(function (response) {return response.json()})
-        .then(function (result) {renderPictures(result)})
+        .then(function (result) {
+            renderPictures(result)
+        })
 }
 
 /**
@@ -62,7 +64,7 @@ const showLoader = function () {
 const hideLoader = function () {
     loaderTimeout = setTimeout(function () {
         loader.style.visibility = 'hidden';
-        loaderTimeout.clearTimeout();
+        clearTimeout(loaderTimeout);
     }, 700);
 }
 
@@ -91,23 +93,22 @@ const renderPictures = function (list) {
         throw Error(`Pictures not defined. The list length: ${list.length}`);
     }
 
-    const clone = templateImageCard.content.cloneNode(true);
-    const fragment = document.createDocumentFragment();
-
+    
     list.forEach(function (element) {
+        const clone = templateImageCard.content.cloneNode(true);
         const link = clone.querySelector('a');
-
+        const image = clone.querySelector('img');
+        const fragment = document.createDocumentFragment();
         link.href = element.url;
         link.dataset.id = element.id;
 
-        const image = clone.querySelector('img');
         image.src = cropImage(element.download_url, 5);
         image.alt = element.author;
         image.classList.add('preview');
         fragment.appendChild(clone)
+        container.appendChild(fragment);
     });
 
-    container.appendChild(fragment);
     hideLoader();
 }
 
@@ -135,7 +136,7 @@ const renderPopupPicture = function (picture) {
 }
 
 /**
- * Функция переклбчает класс открытия на попапе
+ * Функция переключает класс открытия на попапе
  */
 const togglePopup = function () {
     popup.classList.toggle('open');
