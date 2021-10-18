@@ -300,7 +300,7 @@ var togglePopup = function togglePopup() {
 var actionHandler = function actionHandler(evt) {
   evt.preventDefault();
   var nextPage = evt.currentTarget.dataset.page;
-  evt.currentTarget.dataset.page = nextPage + 1;
+  evt.currentTarget.dataset.page = +nextPage + 1;
 
   if (nextPage > MAX_PAGE_IAMGES) {
     console.warn("WARN: You are trying to call a page that exceeds ".concat(MAX_PAGE_IAMGES));
