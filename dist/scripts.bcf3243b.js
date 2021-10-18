@@ -319,9 +319,10 @@ var actionHandler = function actionHandler(evt) {
 
 var imageHandler = function imageHandler(evt) {
   evt.preventDefault();
+  var targetLink = evt.target.closest('a');
 
-  if (evt.target.closest('a')) {
-    getPictureInfo(evt.target.dataset.id);
+  if (targetLink) {
+    getPictureInfo(targetLink.dataset.id);
   }
 };
 

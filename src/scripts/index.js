@@ -171,9 +171,10 @@ const actionHandler = function (evt) {
  */
 const imageHandler = function (evt) {
     evt.preventDefault();
+    const targetLink = evt.target.closest('a')
 
-    if (evt.target.closest('a')) {
-        getPictureInfo(evt.target.dataset.id);
+    if (targetLink) {
+        getPictureInfo(targetLink.dataset.id);
     }
 }
 
