@@ -202,4 +202,5 @@ figcaption {
 
 .popup .link {
   display: inline;
+  background-color: transparent;
 }
