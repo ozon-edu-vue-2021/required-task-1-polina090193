@@ -5,8 +5,8 @@
     "main": "index.js",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "dev": "rm -r dev || true && parcel src/index.html --out-dir dev",
-        "build": "rm -r docs || true && parcel build src/index.html --out-dir docs --public-url ./"
+        "dev": "parcel src/index.html",
+        "build": "parcel build src/index.html"
     },
     "repository": {
         "type": "git",
